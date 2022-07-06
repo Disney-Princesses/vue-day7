@@ -1,33 +1,50 @@
 <template>
   <div>
-    <fromData>
-      <template v-slot:id="scope">
-        {{ scope.row }}
-      </template>
-      <template v-slot:username="scope">
-        <input type="text" v-model="scope.row">
-      </template>
-      <template v-slot:age="scope">
-        <input type="text" v-model="scope.row">
-      </template>
-      <template v-slot:img="scope">
-        <a v-if="scope.row.type == 0" :href="scope.row.headImgUrl">点击</a>
-        <img v-else-if="scope.row.type == 1" :src="scope.row.headImgUrl" alt="">
-        <span v-else>{{ scope.row.headImgUrl }}</span>
-      </template>
-    </fromData>
+    <MyHeader background="red" title="购物车"></MyHeader>
+    <div class="mian">
+      <MyGoods v-for="obj in list" :key="obj.id" :listObj="obj"></MyGoods>
+    </div>
+    <MyFooter @changeAll="allFn" :arr="list"></MyFooter>
   </div>
 </template>
 
 <script>
-import fromData from './components/fromData.vue'
-export default {
-  components: {
-    fromData
-  },
+// 引入子组件
+import MyHeader from "./components/MyHeader";
+import MyFooter from "./components/MyFooter";
+import MyGoods from "./components/MyGoods";
 
-}
+export default {
+  data() {
+    return {
+      list: [],
+    };
+  },
+  components: {
+    MyHeader,
+    MyFooter,
+    MyGoods,
+  },
+  created() {
+    this.$axios({
+      url: "api/cart",
+    }).then((res) => {
+      //   console.log(res);
+      this.list = res.data.list;
+    });
+  },
+  methods: {
+    allFn(bool) {
+      this.list.forEach((item) => {
+        item.goods_state = bool;
+      });
+    },
+  },
+};
 </script>
 
-<style>
+<style scoped>
+.mian {
+  padding: 45px 0 50px 0;
+}
 </style>
