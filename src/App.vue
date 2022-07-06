@@ -1,28 +1,24 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <UseTable></UseTable>
+    <!-- <Tab></Tab> -->
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// 引入表格组件
+import UseTable from "./shows/01.UseTable.vue";
+// 引入tab栏
+// import Tab from './shows/02.Tab.vue'
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    UseTable,
+  },
+  methods:{
+    
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
